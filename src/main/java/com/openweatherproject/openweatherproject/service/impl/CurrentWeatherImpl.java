@@ -1,6 +1,7 @@
 package com.openweatherproject.openweatherproject.service.impl;
 
 import com.openweatherproject.openweatherproject.entity.Weather;
+import com.openweatherproject.openweatherproject.entity.storage.CurrentWeatherURL;
 import com.openweatherproject.openweatherproject.service.WeatherService;
 import com.openweatherproject.openweatherproject.utils.WeatherCreator;
 import org.apache.logging.log4j.LogManager;
@@ -22,15 +23,12 @@ public class CurrentWeatherImpl implements WeatherService {
     @Override
     @Cacheable("current_weather_city")
     public Weather getWeatherByCityName(String cityName) throws IOException {
-        Weather weather = weatherCreator.createWeatherFromURL(cityName);
-        logger.info(weather.toString());
-
-        return null;
+        return weatherCreator.createWeatherFromURL(cityName, CurrentWeatherURL.BY_CITY_NAME);
     }
 
     @Override
     @Cacheable("current_weather_zip")
-    public Weather getWeatherByZIPCode(int zipCode) throws IOException {
-        return null;
+    public Weather getWeatherByZIPCode(String zipCode) throws IOException {
+        return weatherCreator.createWeatherFromURL(zipCode, CurrentWeatherURL.BY_CITY_NAME);
     }
 }

@@ -8,5 +8,5 @@ public interface WeatherService {
 
     Weather getWeatherByCityName(String cityName) throws IOException;
 
-    Weather getWeatherByZIPCode(int zipCode) throws IOException;
+    Weather getWeatherByZIPCode(String zipCode) throws IOException;
 }

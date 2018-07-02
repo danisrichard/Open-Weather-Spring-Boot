@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.openweatherproject.openweatherproject.entity.Weather;
 import com.openweatherproject.openweatherproject.entity.storage.CurrentWeatherURL;
+import com.openweatherproject.openweatherproject.entity.storage.ForeCastWeatherURL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +28,11 @@ public class WeatherCreator {
     @Value("${api.key}")
     private String API_KEY;
 
-    public Weather createWeatherFromURL(Object... parameterObject) throws IOException {
+    public Weather createWeatherFromURL(String location,Enum urlLink) throws IOException {
+        if(checkEnum(urlLink)){
+            throw new IllegalArgumentException("Not valid Enum classes");
+        }
+
         URL url = getUrl();
         URLConnection request = url.openConnection();
         request.connect();
@@ -35,6 +40,10 @@ public class WeatherCreator {
 
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(jsonInString,Weather.class);
+    }
+
+    private boolean checkEnum(Enum urlLink) {
+        return !(urlLink instanceof CurrentWeatherURL || urlLink instanceof ForeCastWeatherURL);
     }
 
     private String getJson(URLConnection request) throws IOException {

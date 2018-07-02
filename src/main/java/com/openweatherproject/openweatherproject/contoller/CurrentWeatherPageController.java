@@ -2,6 +2,7 @@ package com.openweatherproject.openweatherproject.contoller;
 
 import com.openweatherproject.openweatherproject.service.WeatherService;
 import com.openweatherproject.openweatherproject.service.impl.CurrentWeatherImpl;
+import org.omg.CORBA.Current;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +14,7 @@ import java.io.IOException;
 public class CurrentWeatherPageController {
 
     @Autowired
-    private WeatherService weatherService =  new CurrentWeatherImpl();
+    private CurrentWeatherImpl weatherService;
 
     @GetMapping("/index")
     public String weatherByCityName() throws IOException {
