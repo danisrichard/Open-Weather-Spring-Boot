@@ -1,12 +1,12 @@
 package com.openweatherproject.openweatherproject.service;
 
-import com.openweatherproject.openweatherproject.entity.Weather;
+import com.openweatherproject.openweatherproject.entity.WeatherData;
 
 import java.io.IOException;
 
 public interface WeatherService {
 
-    Weather getWeatherByCityName(String cityName) throws IOException;
+    WeatherData getWeatherByCityName(String cityName) throws IOException;
 
-    Weather getWeatherByZIPCode(String zipCode) throws IOException;
+    WeatherData getWeatherByZIPCode(String zipCode) throws IOException;
 }

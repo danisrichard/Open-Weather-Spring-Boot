@@ -1,12 +1,9 @@
 package com.openweatherproject.openweatherproject.contoller;
 
-import com.openweatherproject.openweatherproject.service.WeatherService;
+import com.openweatherproject.openweatherproject.entity.WeatherData;
 import com.openweatherproject.openweatherproject.service.impl.CurrentWeatherImpl;
-import org.omg.CORBA.Current;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -16,14 +13,13 @@ public class CurrentWeatherPageController {
     @Autowired
     private CurrentWeatherImpl weatherService;
 
-    @GetMapping("/index")
-    public String weatherByCityName() throws IOException {
-        weatherService.getWeatherByCityName("Szeged");
-        return "1";
+    @RequestMapping(value = "/current-weather/{city}", method = RequestMethod.GET)
+    public WeatherData weatherByCityName(@PathVariable("city") String city) throws IOException {
+        return weatherService.getWeatherByCityName(city);
     }
 
     @GetMapping("/weather-index/{zipcode}")
-    public String weatherByZIPCode(@RequestParam("cipcode") int zipcode) throws IOException {
+    public String weatherByZIPCode(@RequestParam("zipcode") int zipcode) throws IOException {
         weatherService.getWeatherByCityName("Szeged");
         return "1";
     }
