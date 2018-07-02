@@ -14,6 +14,7 @@ import org.springframework.web.util.UriTemplate;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
@@ -27,20 +28,24 @@ public class WeatherCreator {
     private String API_KEY;
 
     public Weather createWeatherFromURL(Object... parameterObject) throws IOException {
-        URI uri = new UriTemplate(CurrentWeatherURL.BY_CITY_NAME.getURL()).expand("Szeged", API_KEY);
-
-        URL url = new URL(uri.toString());
+        URL url = getUrl();
         URLConnection request = url.openConnection();
         request.connect();
-
-        JsonParser jp = new JsonParser ();
-        JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
-        String jsonInString = root.getAsJsonObject().toString();
-
-        logger.info("Json value: " + jsonInString);
+        String jsonInString = getJson(request);
 
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(jsonInString,Weather.class);
+    }
+
+    private String getJson(URLConnection request) throws IOException {
+        JsonParser jp = new JsonParser ();
+        JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+        return root.getAsJsonObject().toString();
+    }
+
+    private URL getUrl() throws MalformedURLException {
+        URI uri = new UriTemplate(CurrentWeatherURL.BY_CITY_NAME.getURL()).expand("Szeged", API_KEY);
+        return new URL(uri.toString());
     }
 
 }

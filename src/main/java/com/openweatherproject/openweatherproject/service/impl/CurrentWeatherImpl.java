@@ -20,16 +20,16 @@ public class CurrentWeatherImpl implements WeatherService {
     private WeatherCreator weatherCreator;
 
     @Override
-    @Cacheable("weather_city")
+    @Cacheable("current_weather_city")
     public Weather getWeatherByCityName(String cityName) throws IOException {
         Weather weather = weatherCreator.createWeatherFromURL(cityName);
-
         logger.info(weather.toString());
 
         return null;
     }
 
     @Override
+    @Cacheable("current_weather_zip")
     public Weather getWeatherByZIPCode(int zipCode) throws IOException {
         return null;
     }

@@ -23,17 +23,17 @@ final public class Weather {
         private String cityName;
         private String speed;
 
-        public WeatherBuilder setName(String name){
+        public WeatherBuilder setName(String name) {
             this.cityName = name;
             return this;
         }
 
-        public WeatherBuilder setSpeed(String speed){
+        public WeatherBuilder setSpeed(String speed) {
             this.speed = speed;
             return this;
         }
 
-        public Weather createWeather(){
+        public Weather createWeather() {
             return new Weather(this);
         }
     }
