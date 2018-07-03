@@ -1,6 +1,6 @@
 package com.openweatherproject.openweatherproject.utils;
 
-import com.openweatherproject.openweatherproject.entity.WeatherData;
+import com.openweatherproject.openweatherproject.entity.Weather;
 import com.openweatherproject.openweatherproject.entity.storage.CurrentWeatherURL;
 import com.openweatherproject.openweatherproject.entity.storage.ForeCastWeatherURL;
 import org.apache.logging.log4j.LogManager;
@@ -21,7 +21,7 @@ public class WeatherCreator {
     @Value("${api.key}")
     private String API_KEY;
 
-    public WeatherData createWeatherFromURL(String location, Enum urlLink) throws IOException {
+    public Weather createWeatherFromURL(String location, Enum urlLink) throws IOException {
         if(checkEnum(urlLink) || location == null ){
             throw new IllegalArgumentException("Not valid input");
         }
@@ -31,7 +31,7 @@ public class WeatherCreator {
         RestTemplate restTemplate = new RestTemplate();
         String restResourceURL = uri.toString();
 
-        return restTemplate.getForObject(restResourceURL,WeatherData.class);
+        return restTemplate.getForObject(restResourceURL,Weather.class);
     }
 
     private boolean checkEnum(Enum urlLink) {

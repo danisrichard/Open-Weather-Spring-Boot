@@ -1,6 +1,6 @@
 package com.openweatherproject.openweatherproject.contoller;
 
-import com.openweatherproject.openweatherproject.entity.WeatherData;
+import com.openweatherproject.openweatherproject.entity.Weather;
 import com.openweatherproject.openweatherproject.service.impl.CurrentWeatherImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ public class CurrentWeatherPageController {
     private CurrentWeatherImpl weatherService;
 
     @RequestMapping(value = "/current-weather/{city}", method = RequestMethod.GET)
-    public WeatherData weatherByCityName(@PathVariable("city") String city) throws IOException {
+    public Weather weatherByCityName(@PathVariable("city") String city) throws IOException {
         return weatherService.getWeatherByCityName(city);
     }
 
